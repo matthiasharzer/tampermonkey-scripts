@@ -6,7 +6,7 @@ A collection of useful Tampermonkey scripts.
 
 ## Scripts
 
-### Theme Refresher (YT & Twitch) (`refresh-theme.js`)
+### Theme Refresher (YT & Twitch) (`refresh-theme.user.js`)
 
 Refreshes YouTube and Twitch pages when the system theme changes (e.g., from Light to Dark mode), ensuring that the site matches the system preference immediately, since these sites do not support updating the theme dynamically.
 
