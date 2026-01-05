@@ -44,7 +44,7 @@
 						window.history.replaceState({}, '', url.toString());
 					}
 				}
-			}, 500);
+			}, 200);
 
 			// Stop checking after 15 seconds
 			setTimeout(() => clearInterval(checkVideo), 15000);
