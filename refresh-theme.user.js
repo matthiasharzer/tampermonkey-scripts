@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Theme Refresher (YT & Twitch)
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.1.0
 // @description  Refreshes YouTube and Twitch when system theme changes, maintaining video timestamp
 // @author       Matthias Harzer
 // @match        *://www.youtube.com/*
@@ -28,13 +28,20 @@
 		const savedTime = sessionStorage.getItem('yt-theme-refresher-time');
 		if (savedTime) {
 			sessionStorage.removeItem('yt-theme-refresher-time');
+			const savedPaused = sessionStorage.getItem('yt-theme-refresher-paused') === 'true';
+			sessionStorage.removeItem('yt-theme-refresher-paused');
 			const time = parseFloat(savedTime);
 
 			const checkVideo = setInterval(() => {
 				const video = document.querySelector('video');
 				if (video && video.readyState >= 1) {
-					console.log('Restoring video timestamp:', time);
+					console.log('Restoring video timestamp:', time, 'Paused:', savedPaused);
 					video.currentTime = time;
+					if (savedPaused) {
+						video.pause();
+					} else {
+						video.play().catch(e => console.error('Play failed or interrupted:', e));
+					}
 					clearInterval(checkVideo);
 
 					// Remove timestamp from URL if present to keep it clean
@@ -57,6 +64,7 @@
 		const video = document.querySelector('video');
 		if (video && !isNaN(video.currentTime) && video.currentTime > 0) {
 			sessionStorage.setItem('yt-theme-refresher-time', video.currentTime);
+			sessionStorage.setItem('yt-theme-refresher-paused', video.paused);
 		}
 
 		window.location.reload();
