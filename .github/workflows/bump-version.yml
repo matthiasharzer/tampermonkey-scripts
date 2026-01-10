@@ -37,19 +37,6 @@ jobs:
     if: needs.get-next-version.outputs.hasNextVersion == 'true'
 
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: "0"
-      - name: Use Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.14'
-      - name: Install dependencies
-        run: |
-          curl --location --silent --show-error --fail https://astral.sh/uv/install.sh | sh
-          export PATH="$HOME/.local/bin:$PATH"
-          uv sync --dev
       - name: Create new version
         run: |
           sed -i -r "s/(\/\/ @version[[:space:]]+)[0-9]+\.[0-9]+\.[0-9]+/\1${{ needs.get-next-version.outputs.version }}/" refresh-theme.user.js
