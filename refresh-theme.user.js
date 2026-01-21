@@ -6,6 +6,8 @@
 // @author       Matthias Harzer
 // @match        *://www.youtube.com/*
 // @match        *://www.twitch.tv/*
+// @match        *://www.google.com/*
+// @match        *://google.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -117,6 +119,8 @@
 			handleYouTube();
 		} else if (hostname.includes('twitch.tv')) {
 			handleTwitch();
+		} else if (hostname.includes('google.com')) {
+			window.location.reload();
 		} else {
 			// Fallback for other sites if added later
 			window.location.reload();
