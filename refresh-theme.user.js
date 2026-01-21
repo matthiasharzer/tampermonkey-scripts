@@ -39,6 +39,18 @@
 					video.currentTime = time;
 					if (savedPaused) {
 						video.pause();
+						// Enforce pause if YouTube tries to auto-play shortly after
+						const enforcePause = () => {
+							if (!video.paused) {
+								console.log('YouTube tried to autoplay, enforcing pause.');
+								video.pause();
+							}
+						};
+						video.addEventListener('play', enforcePause);
+						// Remove enforcement after a few seconds so user can play
+						setTimeout(() => {
+							video.removeEventListener('play', enforcePause);
+						}, 2000);
 					} else {
 						video.play().catch(e => console.error('Play failed or interrupted:', e));
 					}
