@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Theme Refresher (YT & Twitch)
 // @namespace    http://tampermonkey.net/
-// @version      0.1.1
+// @version      0.2.0
 // @description  Refreshes YouTube and Twitch when system theme changes, maintaining video timestamp
 // @author       Matthias Harzer
 // @match        *://www.youtube.com/*
